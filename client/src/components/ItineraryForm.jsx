@@ -1,11 +1,68 @@
-const ItineraryForm = () => {
-    return (
-      <form className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl mb-4">Create Itinerary</h2>
-        <input className="border p-2 w-full mb-4" type="text" placeholder="Destination" />
-        {/* Add more fields as needed */}
-        <button className="bg-blue-600 text-white p-2 rounded">Add Itinerary</button>
-      </form>
-    );
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+
+function ItineraryForm({ addItinerary }) {
+  const [destination, setDestination] = useState('');
+  const [date, setDate] = useState('');
+  const [details, setDetails] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const itineraryData = { destination, date, details };
+    addItinerary(itineraryData); // Call the addItinerary function
+
+    // Reset form fields
+    setDestination('');
+    setDate('');
+    setDetails('');
+
+    // Navigate back to the itinerary list page
+    navigate('/'); // Navigate to the home page
   };
-  
+
+  return (
+    <div className="bg-white p-4 rounded shadow">
+      <h2 className="text-2xl font-bold">Add Itinerary</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="destination" className="block mb-2">Destination</label>
+          <input
+            id="destination"
+            type="text"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="date" className="block mb-2">Date</label>
+          <input
+            id="date"
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className="border p-2 w-full"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="details" className="block mb-2">Details</label>
+          <textarea
+            id="details"
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            className="border p-2 w-full"
+            rows="4"
+          />
+        </div>
+        <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
+          Add Itinerary
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default ItineraryForm;
