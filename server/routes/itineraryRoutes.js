@@ -1,8 +1,9 @@
 const express = require('express');
 const { createItinerary, getItineraries, updateItinerary, deleteItinerary } = require('../controllers/itineraryController');
 const router = express.Router();
-router.post('/', createItinerary);
-router.get('/', getItineraries);
-router.put('/:id', updateItinerary);
-router.delete('/:id', deleteItinerary);
+router.post('/', authMiddleware, createItinerary);
+router.get('/', authMiddleware, getItineraries);
+router.put('/:id', authMiddleware, updateItinerary);
+router.delete('/:id', authMiddleware, deleteItinerary);
+
 module.exports = router;
