@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function ItineraryForm({ addItinerary }) {
   const [destination, setDestination] = useState('');
   const [date, setDate] = useState('');
-  const [details, setDetails] = useState(''); 
+  const [details, setDetails] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const itineraryData = { destination, date, details }; 
-    addItinerary(itineraryData);
+    const itineraryData = { destination, date, details };
+    addItinerary(itineraryData); // Call the addItinerary function
 
-   
+    // Reset form fields
     setDestination('');
     setDate('');
     setDetails('');
+
+    // Navigate back to the itinerary list page
+    navigate('/'); // Navigate to the home page
   };
 
   return (
