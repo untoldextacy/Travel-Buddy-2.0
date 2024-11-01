@@ -16,7 +16,7 @@ A collaborative web application that helps users plan their trips by suggesting 
 - **Backend**: 
 - **Authentication**: JWT (JSON Web Tokens)
 - **Email Sending**: Nodemailer
-- **Styling**: CSS, Tailwinds
+- **Styling**: TailwindCSS 
 
 ## Getting Started
 
