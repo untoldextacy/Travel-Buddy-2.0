@@ -7,7 +7,7 @@ const authRoutes = require('./routes/authRoutes');
 const itineraryRoutes = require('./routes/itineraryRoutes');
 const destinationRoutes = require('./routes/destinationRoutes');
 const activityRoutes = require('./routes/activityRoutes');
-const { path } = require('path');
+const path = require('path');
 
 const app = express();
 app.use(cors());
