@@ -11,7 +11,7 @@
     "build-client": "cd client && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Miguel P, Brittany R, Chukuma VL",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^9.0.1",
