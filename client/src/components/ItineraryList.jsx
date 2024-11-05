@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ShareItinerary from './ShareItinerary'; // Import the ShareItinerary component
 
 function ItineraryList({ itineraries }) {
   const [hoveredId, setHoveredId] = useState(null);
@@ -23,6 +24,10 @@ function ItineraryList({ itineraries }) {
                   {itinerary.details || "No additional details"}
                 </div>
               )}
+              {/* Add the ShareItinerary button here */}
+              <div className="mt-4 text-center">
+                <ShareItinerary itineraryId={itinerary.id} />
+              </div>
             </li>
           ))}
         </ul>

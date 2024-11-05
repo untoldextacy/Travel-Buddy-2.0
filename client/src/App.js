@@ -3,12 +3,17 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ItineraryForm from './components/ItineraryForm';
 import ItineraryList from './components/ItineraryList';
+import ShareItineraryPage from './components/ShareItineraryPage';
 
 function App() {
   const [itineraries, setItineraries] = useState([]);
 
   const addItinerary = (newItinerary) => {
     setItineraries([...itineraries, { id: itineraries.length + 1, ...newItinerary }]);
+  };
+
+  const deleteItinerary = (id) => {
+    setItineraries(itineraries.filter(itinerary => itinerary.id !== id));
   };
 
   return (
@@ -23,6 +28,7 @@ function App() {
           <Routes>
             <Route path="/" element={<ItineraryList itineraries={itineraries} />} />
             <Route path="/add-itinerary" element={<ItineraryForm addItinerary={addItinerary} />} />
+            <Route path="/share/:id" element={<ShareItineraryPage itineraries={itineraries} deleteItinerary={deleteItinerary} />} />
           </Routes>
         </div>
       </div>
