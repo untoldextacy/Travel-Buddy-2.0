@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A Travel Itinerary Planner to help users organize their trips efficiently.">
-    <meta name="author" content="Your Name or Team Name">
-    <title>Travel Itinerary Planner</title>
+    <meta name="description" content="A Interactive Travel Itinerary Planner to help users organize their trips efficiently.">
+    <meta name="author" content="Miguel Pena, Brittnany Reyes, Chuck Van-Lare">
+    <title>Travel Buddy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" integrity="sha384-rN5ybkT8mF1O+J8SULmtQxAMn/N2lg3Z5mc0GZqX7ElF1L2qRaM9eI4OlwhQs4Fz" crossorigin="anonymous" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> <!-- For PWA support -->
@@ -18,6 +18,13 @@
 
     
     <script>
+         function initMap() {
+            // Initialize and add the map
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 8,
+                center: { lat: -34.397, lng: 150.644 }, // Your default location
+            });
+        }
         // Google Analytics, etc., for later, Whatvever I decide on.
     </script>
 </body>
