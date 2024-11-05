@@ -10,10 +10,12 @@ const activityRoutes = require('./routes/activityRoutes');
 
 const app = express();
 
+
 const allowedOrigins = process.env.NODE_ENV === 'development'
   ? ['http://localhost:3000']
   : '*';
 app.use(cors({ origin: 'allowedOrigins' }));
+
 
 app.use(express.json());
 
