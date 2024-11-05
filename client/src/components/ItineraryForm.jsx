@@ -1,21 +1,41 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+
+const mapContainerStyle = {
+  height: "300px", // Adjust height as necessary
+  width: "100%"
+};
+
+const defaultCenter = {
+  lat: 37.7749, // Default center (San Francisco)
+  lng: -122.4194
+};
 
 function ItineraryForm({ addItinerary }) {
   const [destination, setDestination] = useState('');
   const [date, setDate] = useState('');
   const [details, setDetails] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [selectedLocation, setSelectedLocation] = useState(defaultCenter); // State for selected location
+  const navigate = useNavigate();
+
+  const handleMapClick = (event) => {
+    setSelectedLocation({
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const itineraryData = { destination, date, details };
-    addItinerary(itineraryData); // Call the addItinerary function
+    const itineraryData = { destination, date, details, location: selectedLocation }; // Include selected location
+    addItinerary(itineraryData);
 
     // Reset form fields
     setDestination('');
     setDate('');
     setDetails('');
+    setSelectedLocation(defaultCenter); // Reset selected location
 
     // Navigate back to the itinerary list page
     navigate('/'); // Navigate to the home page
@@ -57,6 +77,22 @@ function ItineraryForm({ addItinerary }) {
             rows="4"
           />
         </div>
+
+        {/* Google Maps Integration */}
+        <div className="mb-4">
+          <label className="block mb-2 text-gray-700">Select Location on Map</label>
+          <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+            <GoogleMap
+              mapContainerStyle={mapContainerStyle}
+              center={selectedLocation}
+              zoom={10}
+              onClick={handleMapClick}
+            >
+              <Marker position={selectedLocation} />
+            </GoogleMap>
+          </LoadScript>
+        </div>
+
         <button type="submit" className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg transition duration-300 hover:bg-blue-500 focus:outline-none">
           Add Itinerary
         </button>

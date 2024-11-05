@@ -26,7 +26,7 @@ function App() {
         </div>
         <div className="flex-grow p-4">
           <Routes>
-            <Route path="/" element={<ItineraryList itineraries={itineraries} />} />
+            <Route path="/" element={<ItineraryList itineraries={itineraries} addItinerary={addItinerary} />} />
             <Route path="/add-itinerary" element={<ItineraryForm addItinerary={addItinerary} />} />
             <Route path="/share/:id" element={<ShareItineraryPage itineraries={itineraries} deleteItinerary={deleteItinerary} />} />
           </Routes>

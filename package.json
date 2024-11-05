@@ -16,5 +16,8 @@
   "devDependencies": {
     "concurrently": "^9.0.1",
     "travel-buddy": "file:"
+  },
+  "dependencies": {
+    "@react-google-maps/api": "^2.20.3"
   }
 }
