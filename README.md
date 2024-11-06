@@ -1,5 +1,6 @@
 
 # Travel-Buddy
+![Travel Buddy](/client/public/assets/svg/travel-buddy.webp)
 
 A collaborative web application that helps users plan their trips by suggesting destinations, activities, and accommodations. Users can create itineraries, share them with friends via email, and manage their travel plans easily.
 
