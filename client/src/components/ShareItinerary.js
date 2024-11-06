@@ -12,3 +12,5 @@ const ShareItinerary = ({ itineraryId }) => {
 };
 
 export default ShareItinerary;
+
+
