@@ -52,6 +52,7 @@ function ItineraryForm({ addItinerary }) {
       });
     }
   }, []);
+  
 
   const handleMapClick = (event) => {
     setSelectedLocation({
