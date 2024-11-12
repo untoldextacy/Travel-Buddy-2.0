@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 function Navbar() {
   const { user, logout } = useAuth(); // Get authentication state
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout(); // Call the logout function to log the user out
+    navigate('/login'); // Redirect the user to the login page after logging out
+  };
 
   return (
     <nav className="bg-gradient-to-r from-blue-400 to-purple-600 text-white p-4 shadow-md">
@@ -27,7 +33,7 @@ function Navbar() {
             </>
           ) : (
             <li>
-              <button onClick={logout} className="hover:underline hover:text-yellow-300 font-semibold transition duration-300">Logout</button>
+              <button onClick={handleLogout} className="hover:underline hover:text-yellow-300 font-semibold transition duration-300">Logout</button>
             </li>
           )}
         </ul>

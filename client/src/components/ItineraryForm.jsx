@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
@@ -23,11 +23,20 @@ function ItineraryForm({ addItinerary }) {
   const autocompleteRef = useRef(null);
   const navigate = useNavigate();
 
+  const addMarker = (location) => {
+    if (mapRef.current) {
+      new window.google.maps.Marker({
+        map: mapRef.current,
+        position: location,
+      });
+    }
+  }
+
   useEffect(() => {
     if (window.google && window.google.maps && window.google.maps.places) {
       autocompleteRef.current = new window.google.maps.places.Autocomplete(
-        document.getElementById("destination"), // Target the destination input
-        { types: ["(cities)"] } // Restrict to cities or adjust as needed
+        document.getElementById("destination"),
+        { types: ["(cities)"] }
       );
 
       autocompleteRef.current.addListener("place_changed", () => {
@@ -37,12 +46,13 @@ function ItineraryForm({ addItinerary }) {
             lat: place.geometry.location.lat(),
             lng: place.geometry.location.lng(),
           };
-          setSelectedLocation(newLocation); // Set the map center to the selected location
+          setSelectedLocation(newLocation);
           addMarker(newLocation); // Update marker position
         }
       });
     }
   }, []);
+  
 
   const handleMapClick = (event) => {
     setSelectedLocation({
