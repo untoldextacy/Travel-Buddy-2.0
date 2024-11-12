@@ -19,7 +19,30 @@ function ItineraryForm({ addItinerary }) {
   const [date, setDate] = useState('');
   const [details, setDetails] = useState('');
   const [selectedLocation, setSelectedLocation] = useState(defaultCenter); // State for selected location
+  const mapRef = useRef(null);
+  const autocompleteRef = useRef(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.google && window.google.maps && window.google.maps.places) {
+      autocompleteRef.current = new window.google.maps.places.Autocomplete(
+        document.getElementById("destination"), // Target the destination input
+        { types: ["(cities)"] } // Restrict to cities or adjust as needed
+      );
+
+      autocompleteRef.current.addListener("place_changed", () => {
+        const place = autocompleteRef.current.getPlace();
+        if (place.geometry) {
+          const newLocation = {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };
+          setSelectedLocation(newLocation); // Set the map center to the selected location
+          addMarker(newLocation); // Update marker position
+        }
+      });
+    }
+  }, []);
 
   const handleMapClick = (event) => {
     setSelectedLocation({
@@ -38,6 +61,15 @@ function ItineraryForm({ addItinerary }) {
     setDate('');
     setDetails('');
     setSelectedLocation(defaultCenter); // Reset selected location
+
+    const addMarker = (location) => {
+      if (mapRef.current) {
+        new window.google.maps.marker.AdvancedMarkerElement({
+          map: mapRef.current,
+          position: location,
+        });
+      }
+    };
 
     // Navigate back to the itinerary list page
     navigate('/'); // Navigate to the home page
@@ -80,18 +112,23 @@ function ItineraryForm({ addItinerary }) {
           />
         </div>
 
-        {/* Google Maps Integration */}
-        <div className="mb-4">
+          {/* Google Maps Integration */}
+          <div className="mb-4">
           <label className="block mb-2 text-gray-700">Select Location on Map</label>
-          <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}>
+          <LoadScript
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAPS_API_KEY}
+            libraries={["places"]} // Add 'places' library for autocomplete
+          >
             <GoogleMap
               mapContainerStyle={mapContainerStyle}
               center={selectedLocation}
               zoom={10}
               onClick={handleMapClick}
-            >
-              <Marker position={selectedLocation} />
-            </GoogleMap>
+              onLoad={(map) => {
+                mapRef.current = map; // Save map instance to ref
+                addMarker(selectedLocation); // Add initial marker
+              }}
+            />
           </LoadScript>
         </div>
 
