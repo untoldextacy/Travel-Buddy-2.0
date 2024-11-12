@@ -1,5 +1,6 @@
 // const API_URL = 'http://localhost:3000/api';  // Change this to your API URL
-const API_URL = 'https://travel-buddy-sy8m.onrender.com/api'; 
+// const API_URL = 'https://travel-buddy-sy8m.onrender.com/api'; 
+const API_URL = '/api'; 
 
 const login = async (email, password) => {
   const response = await fetch(`${API_URL}/auth/login`, {
