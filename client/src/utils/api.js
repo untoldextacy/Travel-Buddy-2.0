@@ -1,13 +1,13 @@
-/* const API_URL = 'http://localhost:5000/api'; */ // Change this to your API URL
+// const API_URL = 'http://localhost:3000/api';  // Change this to your API URL
 const API_URL = 'https://travel-buddy-sy8m.onrender.com/api'; 
 
-const login = async (username, password) => {
-  const response = await fetch(`${API_URL}/login`, {
+const login = async (email, password) => {
+  const response = await fetch(`${API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ email, password }),
   });
 
   if (!response.ok) {
@@ -19,7 +19,7 @@ const login = async (username, password) => {
 };
 
 const signup = async (username, email, password) => {
-  const response = await fetch(`${API_URL}/signup`, {
+  const response = await fetch(`${API_URL}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

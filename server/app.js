@@ -9,6 +9,9 @@ const destinationRoutes = require('./routes/destinationRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 const path = require('path');
 
+require("dotenv").config();
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -24,7 +27,7 @@ app.use(cors({ origin: allowedOrigins
 
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/travelbuddy')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
@@ -34,12 +37,12 @@ app.use('/api/itineraries', itineraryRoutes);
 app.use('/api/destinations', destinationRoutes);
 app.use('/api/activities', activityRoutes);
 
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/build/index.html'));
   });
-}
+// }
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
